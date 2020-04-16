@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/css/kyc.css'
+// import '../../assets/css/kyc.css'
 import {Link} from 'react-router-dom'
 import bg from '../../assets/images/img2.jpg'
 import Stepper from '../../components/step-form/Card'

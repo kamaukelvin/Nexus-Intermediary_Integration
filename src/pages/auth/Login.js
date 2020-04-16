@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import bg from "../../assets/images/bg/bg-7.jpg";
+import pic from "../../assets/images/auth/login.svg"
 import Logo from "../../assets/images/nexus_logo.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -92,12 +93,7 @@ console.log("this is the stet of login"+JSON.stringify(user))
     setUser({ loading: true });
   };
 
-  // spinner style
 
-  const spinnerStyle = {
-    width: "30px",
-    height: "30px",
-  };
 
   return (
     <Formik
@@ -114,13 +110,15 @@ console.log("this is the stet of login"+JSON.stringify(user))
       onSubmit={() => login()}
     >
       {({ errors, status, touched }) => (
-        <div className="row ">
+        <div className="d-flex">
           <div
-            className="col-md-5 d-flex "
+            className="col-md-6 d-flex "
             style={{
-              backgroundImage: `url(${bg})`,
+              backgroundImage: `url(${pic})`,
               backgroundSize: "cover",
-              height: "100vh",
+              backgroundPosition: "center",
+              width: "80vw",
+              height:"100vh"
             }}
           >
             <Link to="/" className="">
@@ -132,16 +130,17 @@ console.log("this is the stet of login"+JSON.stringify(user))
                 alt="Logo"
               />
             </Link>
-
+{/* 
             <div className=" align-self-center text-white">
               <h3>Welcome to Nexus</h3>
+            
               <p className="">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
                 itaque debitis doloribus?Lorem ipsum dolor sit amet consectetur
                 adipisicing elit. Amet itaque debitis doloribus?met itaque
                 debitis doloribus?
               </p>
-            </div>
+            </div> */}
 
             <div
               className=""
@@ -161,7 +160,7 @@ console.log("this is the stet of login"+JSON.stringify(user))
             </div>
           </div>
 
-          <div className="col-md-7">
+          <div className="col-md-6">
             <div className="container">
             
               <div
@@ -236,12 +235,11 @@ console.log("this is the stet of login"+JSON.stringify(user))
                     className="btn btn-login float-right"
                     // onClick={login}
                   >
-                    {user.loading && (
-                      <span className="text-capitalize">
-                        <Loader style={spinnerStyle} />
-                        Login
+                    {user.loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
+                    {user.loading && <span className="text-capitalize">
+                      Logging In
                       </span>
-                    )}
+                    }
                     {!user.loading && (
                       <span className="text-capitalize"> Login</span>
                     )}

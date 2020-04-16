@@ -3,7 +3,7 @@ import bg from "../../assets/images/bg/bg-7.jpg";
 import Logo from "../../assets/images/nexus_logo.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Loader from "../../components/widgets/loader";
+
 
 //  React Notification
 import { NotificationManager } from "react-notifications";
@@ -93,12 +93,6 @@ const Credentials = (props) => {
     setUser({ loading: true });
   };
 
-  // spinner style
-
-  const spinnerStyle = {
-    width: "30px",
-    height: "30px",
-  };
 
 
 
@@ -123,7 +117,7 @@ const Credentials = (props) => {
       onSubmit={() => login()}
     >
       {({ errors, touched }) => (
-        <div className="row ">
+        <div className="d-flex">
           <div
             className="col-md-5 d-flex "
             style={{
@@ -287,12 +281,11 @@ const Credentials = (props) => {
                     className="btn btn-login float-right"
                     // onClick={login}
                   >
-                    {user.loading && (
-                      <span className="text-capitalize">
-                        <Loader style={spinnerStyle} />
-                        Submit
+                   {user.loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
+                    {user.loading && <span className="text-capitalize">
+                      Submit
                       </span>
-                    )}
+                    }
                     {!user.loading && (
                       <span className="text-capitalize"> Submit</span>
                     )}

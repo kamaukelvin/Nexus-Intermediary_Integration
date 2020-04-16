@@ -119,7 +119,7 @@ const Signup = (props) => {
       onSubmit={() => login()}
     >
       {({ errors, status, touched }) => (
-        <div className="row ">
+        <div className="d-flex">
           <div
             className="col-md-5 d-flex "
             style={{
@@ -211,6 +211,7 @@ const Signup = (props) => {
                       "form-control border"+
                       (errors.ira && touched.ira ? " is-invalid" : "")
                     }>
+                       <option value='1' disabled>Select</option>
                       {options.map(option =>
                         <option value={option.value}>{option.label}</option>
                       )}
@@ -248,12 +249,11 @@ const Signup = (props) => {
                     className="btn btn-login float-right"
                     // onClick={login}
                   >
-                    {user.loading && (
-                      <span className="text-capitalize">
-                        <Loader style={spinnerStyle} />
-                        Register
+                 {user.loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
+                    {user.loading && <span className="text-capitalize">
+                      Register
                       </span>
-                    )}
+                    }
                     {!user.loading && (
                       <span className="text-capitalize"> Register</span>
                     )}
