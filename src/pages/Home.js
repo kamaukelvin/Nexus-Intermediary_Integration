@@ -13,11 +13,11 @@ const Home=()=> {
             <div className="tophead">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-md-7 ">
-                  <h1 className="title-main wow fadeInLeft" data-wow-duration="1.5s">Guarantees for the if in life.</h1>
-                  <h3 className="subtitle-main wow fadeInUp" data-wow-duration="1.1s">Lorem ipsum dolor sit amet consectetur adipiscing elit proin leo leo ornare nec vulputate tempus velit nam id purus tellus hendrerit mi dapibus.</h3>
+                <div className="col-md-7  ">
+                  <h1 className="title-main wow fadeInLeft text-white" data-wow-duration="1.5s">Guarantees for the if in life.</h1>
+                  <h3 className="subtitle-main wow fadeInUp text-white" data-wow-duration="1.1s">Lorem ipsum dolor sit amet consectetur adipiscing elit proin leo leo ornare nec vulputate tempus velit nam id purus tellus hendrerit mi dapibus.</h3>
                   <div className="top-btn-block wow fadeInUp">
-                    <Link to="/signup" className="btn-explore ">Create Account</Link>
+                    <Link to="/signup" className="btn-explore text-white">Create Account</Link>
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@ const Home=()=> {
         <main>
           <section id="stats" className="pt-3">
             <section className="overview-wrap" id="overview">
-              <div className="container">
+              <div className="container shadow-none">
                 <div className="contenedor">
                   <h2 className="title-overview wow fadeInUp">Overview</h2>
                   <p className="subtitle-overview wow fadeInUp">Lorem ipsum dolor sit amet consectetur adipiscing elit proin leo leo ornare nec vulputate tempus velit nam id purus tellus hendrerit mi dapibus</p>
@@ -77,7 +77,7 @@ const Home=()=> {
             </section>
             <section className="testimonials-wrap" id="testimonials">
               <div className="sesgoarriba" />
-              <div className="container">
+              <div className="container shadow-none">
                 <div className="contenedor">
                   <h2 className="title-testimonials wow fadeInUp">Happy Clients</h2>
                   <h3 className="subtitle-testimonials wow fadeInUp">Lorem ipsum dolor sit amet consectetur adipiscing elit proin leo leo ornare nec vulputate tempus velit nam id purus tellus hendrerit mi dapibus</h3>
@@ -93,7 +93,7 @@ const Home=()=> {
           {/* Footer Widgets */}
           <div className="footer-widgets">
             <div className="footer-widgets__inner pt-5">
-              <div className="container">
+              <div className="container shadow-none">
                 <div className="row ">
                   <div className="col-sm-6 col-md-3">
                     <div className="footer-col-inner">
@@ -128,7 +128,7 @@ const Home=()=> {
                     <div className="footer-col-inner">
                       {/* Widget: Popular Posts / End */}
                       <div className="widget widget--footer widget-popular-posts">
-                        <h5 className="widget__title">Visit Us</h5>
+                        <h5 className="widget__title text-white">Visit Us</h5>
                         <div className="widget__content">
                           <ul className="social-links d-flex pt-3">
                             <li className="social-links__item mr-3">
@@ -221,7 +221,7 @@ const Home=()=> {
                     <div className="footer-col-inner">
                       {/* Footer Logo */}
                       <div className="footer-logo__heading">
-                        <h5 className="footer-logo__txt">Contact Us</h5>
+                        <h5 className="footer-logo__txt text-white">Contact Us</h5>
                       </div>
                       {/* Footer Logo / End */}
                       {/* Widget: Contact Info */}
@@ -241,7 +241,7 @@ const Home=()=> {
                     <div className="footer-col-inner">
                       {/* Widget: Featured News / End */}
                       <div className="widget widget--footer widget-featured-posts">
-                        <h5 className="widget__title">Sign Up to our Newsletter</h5>
+                        <h5 className="widget__title text-white">Sign Up to our Newsletter</h5>
                         <div className="widget__content pt-3">
                           <div className="form-group form-group--xs">
                             <input type="email" className="form-control input-sm" id="contact-form-email" placeholder="Your email address..." />
@@ -260,7 +260,7 @@ const Home=()=> {
           {/* Footer Widgets / End */}
           {/* Footer Secondary */}
           <div className="footer-secondary small">
-            <div className="container">
+            <div className="container shadow-none">
               <div className="footer-secondary__inner pt-3">
                 <div className="row">
                   <div className="col-md-4">

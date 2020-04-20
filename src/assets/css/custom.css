@@ -438,14 +438,65 @@ a.btn.btn-circle.my-social-btn {
 }
 
 
-.password-icon{
+.fa.fa-eye, .fa.fa-eye-slash {
+    position: relative;
+    float: right;
+}
+.fa-eye-slash:before{
+   
     position: absolute;
-    top: 42px;
-    right: 12px;
+    top: -25px;
+    right: 10px;
     cursor:pointer
+ 
+}
+.fa-eye:before{
+   
+    position: absolute;
+    top: -25px;
+    right: 10px;
+    cursor:pointer
+   
+  
+}
+.choice-icon-image{
+    height: 100px;
+    width: 81px;
+    padding-top: 1.2em;
+  }
+  
 
+  /* KYC SETUP */
+  .ant-steps-item-finish .ant-steps-item-icon {
+    background-color: #fff;
+    border-color: #5cb85c !important;
+}
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+    color: #5cb85c !important;
+}
+.ant-steps-item-process .ant-steps-item-icon {
+    background: #001f5f !important;
 }
 
+.ant-steps-item-process .ant-steps-item-icon {
+    background-color: #fff;
+    border-color: #001f5f !important;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color:#001f5f !important;
+    border-color: #001f5f !important;
+ 
+}
+.ant-steps-item-icon > .ant-steps-icon {
+    position: relative;
+    top: -3px !important;
+
+}
+.ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
+    background-color: #001f5f !important;
+}
 
 
 /* Footer */

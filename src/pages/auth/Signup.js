@@ -1,34 +1,32 @@
 import React, { useState } from "react";
 import bg from "../../assets/images/bg/bg-7.jpg";
-import Logo from "../../assets/images/nexus_logo.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Loader from "../../components/widgets/loader";
-
-//  React Notification
-import { NotificationManager } from "react-notifications";
+import { useToasts } from 'react-toast-notifications'
 
 //  Validation
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-// token
-import { setUserSession } from "../../utils/Common";
 
 const Signup = (props) => {
+
+  const { addToast } = useToasts();
+
   // states
 
   const [user, setUser] = useState({
-    email: "",
-    ira: "",
-    terms: false,
-    loading: false,
+
+    ira_code: "1456",
+    category:"",
+    email: ""
   });
 
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //  destructure
-  const { email, ira } = user;
+
   const { history } = props;
 
 
@@ -43,65 +41,58 @@ const Signup = (props) => {
 
     console.log(user);
   };
-  const toggleAcceptTerms=()=>{
-    setUser({...user,
-      terms:!user.terms
-    })
-  }
-  //  Login in user
 
-  const login = () => {
-    console.log("SIGNUP function with user state"+ JSON.stringify(user))
-    const body = {
-      email,
-      ira,
-    };
+  //  Register new user
+  const register = () => {
 
+    // body
+    const body ={
+      "resource":"registration",
+	    "action":"add",
+      "data": {
+        "ira_code": `${user.ira_code}`,
+        "category": `${user.category}`,
+        "email": `${user.email}`,
+      }
+    }
+    // headers
     const config = {
       header: {
         "Content-Type": "application/json",
+        'Accept': 'application/json',
       },
     };
 
+    // API Request
     axios
-      .post(
-        "https://yotemarket.co.ke/kev/api/login.php",
-        JSON.stringify(body),
-        config
-      )
+      .post( 'http://api.nexus.ke/api/web/v1/intermediary',body, config)
       .then((res) => {
-        setUser({ ...user, loading: false });
-        setUserSession(res.data.jwt);
-        history.push("/dashboard");
+
+        setUser({ ...user});
+        setLoading(false)
+        addToast(`Verification link sent successfully to ${user.email}`, { appearance: 'success',  autoDismiss: true })
+
+        console.log("successful"+ res)
       })
-      // errors are printed out in the console
-      .catch((error) => {
-        console.log("we are at the error and error is" + JSON.stringify(error));
-        setError(error.message);
-        NotificationManager.error(error.message, "Failed");
-        setUser({ ...user, loading: false });
+     
+      .catch((err) => {
+        // console.log("this is the user"+ JSON.stringify(user))
+     
+        // console.log("we are at the error and error is" + JSON.stringify(err.response.data.err_msg));
+        setError(err.response.data.err_msg);
+        addToast(err.response.data.err_msg, { appearance: 'error',autoDismiss: true, } )
+        setUser({ ...user});
+        setLoading(false)
       });
-    setUser({ ...user, loading: true });
-  };
-
-  // spinner style
-
-  const spinnerStyle = {
-    width: "30px",
-    height: "30px",
-  };
+      setLoading(true)};
 
 
-  // IRA OPTIONS
-  const options = [
-    
-    { value: 'Food', label: 'Food' },
-    { value: 'Being Fabulous', label: 'Being Fabulous' },
-    { value: 'Ken Wheeler', label: 'Ken Wheeler' },
-    { value: 'ReasonML', label: 'ReasonML' },
-    { value: 'Unicorns', label: 'Unicorns' },
-    { value: 'Kittens', label: 'Kittens' },
-  ];
+    // CATEGORY OPTIONS
+    const categories = [
+      { value: '', label: 'Select a Category' },
+      { value: 'AGENT', label: 'Agent' },
+      { value: 'BROKER', label: 'Broker' },
+      ];
 
   return (
     <Formik
@@ -111,17 +102,17 @@ const Signup = (props) => {
         email: Yup.string()
           .email("Please enter a valid email")
           .required("Email is required"),
-        ira: Yup.string()
+        ira_code: Yup.string()
           .required("IRA code is required"),
-        terms: Yup.boolean()
-              .oneOf([true], 'Please accept Terms and Conditions')
+        category: Yup.string()
+        .required("Select a category"),
       })}
-      onSubmit={() => login()}
+      onSubmit={() => register()}
     >
       {({ errors, status, touched }) => (
         <div className="d-flex">
           <div
-            className="col-md-5 d-flex "
+            className="col-md-6 d-flex "
             style={{
               backgroundImage: `url(${bg})`,
               backgroundSize: "cover",
@@ -139,13 +130,35 @@ const Signup = (props) => {
             </Link>
 
             <div className=" align-self-center text-white">
-              <h3>Register for Free</h3>
-              <p className="">
+              <h3 className="text-white pb-3">Register for Free</h3>
+              <p className="text-white pb-3">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
                 itaque debitis doloribus?Lorem ipsum dolor sit amet consectetur
                 adipisicing elit. Amet itaque debitis doloribus?met itaque
                 debitis doloribus?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
+                itaque debitis doloribus?Lorem ipsum dolor sit amet consectetur
+              
               </p>
+              <h4 className="text-white mt-3">Benefits of being part of us</h4>
+              <ul>
+                <div className="d-flex justify-content-between">
+                 
+                  <div>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+              
+                  </div>
+                  <div>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+                  <li className="p-2"><i className="fa fa-check pr-2"/> Lorem ipsum lot erluipsum</li>
+                  </div>
+          
+            <div></div>
+                </div>
+              </ul>
             </div>
 
             <div
@@ -166,7 +179,7 @@ const Signup = (props) => {
             </div>
           </div>
 
-          <div className="col-md-7">
+          <div className="col-md-6">
             <div className="container">
              
               <div
@@ -177,11 +190,11 @@ const Signup = (props) => {
                   left: "25%",
                 }}
               >
-                {error ? (
+                {/* {error ? (
                   <div role="alert" className="alert alert-danger">
                     <div className="alert-text">{error}</div>
                   </div>
-                ) : null}
+                ) : null} */}
                 <h2 className="text-center mb-5">Create an Account</h2>
                 <Form className="login-form">
                   <div className="form-group">
@@ -203,63 +216,59 @@ const Signup = (props) => {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="ira">IRA Code</label>
+                    <label htmlFor="category">Category</label>
                     <Field 
-                    name="ira" as="select" 
+                    name="category" as="select" 
                     onChange={handleChange}
                     className={
                       "form-control border"+
-                      (errors.ira && touched.ira ? " is-invalid" : "")
+                      (errors.category && touched.category ? " is-invalid" : "")
                     }>
-                       <option value='1' disabled>Select</option>
-                      {options.map(option =>
-                        <option value={option.value}>{option.label}</option>
+                     
+                      {categories.map(category =>
+                        <option value={category.value}>{category.label}</option>
                       )}
                     </Field>
                     <ErrorMessage
-                      name="ira"
+                      name="category"
                       component="div"
                       className="invalid-feedback"
                     />
                   </div>
-                  <div className="form-group form-check">
-  
-                      <input
-                        type="checkbox"
-                        name="terms"
-                        checked={user.terms}
-                        onChange={toggleAcceptTerms}
-                        className={
-                          "form-check-input" +
-                          (errors.terms && touched.terms ? " is-invalid" : "")
-                        }
-                      />
-                    <label className="form-check-label">
-                      I have read the terms and conditions
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="ira_code">IRA Code</label>
+                    <Field
+                      name="ira_code"
+                      type="text"
+                      value={user.ira_code}
+                      onChange={handleChange}
+                      className={
+                        "form-control border " +
+                        (errors.ira_code && touched.ira_code ? " is-invalid" : "")
+                      }
+                    />
                     <ErrorMessage
-                      name="terms"
+                      name="ira_code"
                       component="div"
                       className="invalid-feedback"
                     />
                   </div>
                   <button
                     type="submit"
-                    disabled={user.loading}
-                    className="btn btn-login float-right"
-                    // onClick={login}
+                    disabled={loading}
+                    className="btn btn-login btn-block mt-5"
                   >
-                 {user.loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
-                    {user.loading && <span className="text-capitalize">
+                 {loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
+                    {loading && <span className="text-capitalize">
                       Register
                       </span>
                     }
-                    {!user.loading && (
+                    {!loading && (
                       <span className="text-capitalize"> Register</span>
                     )}
                   </button>
                 </Form>
-                <p className="float-right  mt-5 pt-5">
+                <p className="pt-3">
                 Already have an account? <Link to="/login">Log In</Link>
               </p>
               </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Spinner from '../../../assets/images/spinner_3.svg';
+import Spinner from '../../../assets/images/spinner_2.svg';
 
 const Loader=({style})=> {
     return (

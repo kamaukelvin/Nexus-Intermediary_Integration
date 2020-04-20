@@ -1,9 +1,4 @@
-body.inverse {
-    background: #333333;
-  }
-  body.inverse, body.inverse .form-control {
-    color: #ffffff;
-  }
+
   body.inverse .modal,
   body.inverse .modal .form-control,
   body.inverse .panel-default,

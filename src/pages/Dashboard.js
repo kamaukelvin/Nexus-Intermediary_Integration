@@ -1,6 +1,6 @@
 import React from 'react'
 import '../assets/css/dashboard.css'
-// import '../assets/css/style.min.css'
+import '../assets/css/style.min.css'
 import '../assets/css/app.min.css'
 import Navbar from '../components/dashboard-nav'
 import Sidebar from '../components/dashboard-sidebar'

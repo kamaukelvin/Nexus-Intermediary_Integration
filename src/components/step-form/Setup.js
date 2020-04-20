@@ -1,9 +1,30 @@
 import React,{useContext} from 'react'
 import {KycContext} from '../../context/KycContext'
+import { Upload, message, Button } from 'antd'
+import 'antd/dist/antd.css';
+import * as Icon from 'react-feather';
 
 
 
 export default function Finish(props) {
+
+  const abc = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`)
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`)
+      }
+    },
+  }
 
   const context = useContext(KycContext)
   const {kyc, setKyc}= context
@@ -25,8 +46,11 @@ export default function Finish(props) {
     const handleAddRow = (e)=>{
       e.preventDefault()
       const item ={
+        image:null,
         director_name:'',
-        email:''
+        id: '',
+        email:'',
+
       };
       setKyc({ ...kyc, directors:[...directors,item]})
    
@@ -42,46 +66,21 @@ export default function Finish(props) {
       setKyc({...kyc, certificate :e.target.files[0]})
       console.log(e.target.files[0])
     }
-    const  back = e => {
-        e.preventDefault();
-        props.prevStep();
-     };
+  
   
  
  
     return (
-        <div>
-            
-        <div className="wizard-navigation">
-        <ul>
-          <li>
-            <div onClick={back}  data-toggle="tab">Intermediary</div>
-          </li>
-          <li>
-            <div data-toggle="tab">Finish up</div>
-          </li>
-        </ul>
-      </div>
-            <div className="container">
-                <div className="row ">
-                    <div className="col-sm-12">
-                        <h4 className="info-text pt-3">
-                            Almost Done!
-                        </h4>
-                        <div className="col-sm-6 offset-sm-3">
-                        <div className="justify-content-center align-items-center">
-                            <div className="input-group my-3">
-                                <div className="custom-file">
-                                    <input 
-                                    type="file" 
-                                    className="custom-file-input" 
-                                    name="certificate"
-                                    onChange={onChangeFileHandler}
-              />
-                                    <label className="custom-file-label" htmlFor="inputGroupFile01">Upload Certificate</label>
-                                </div>
-                            </div>
-                            <div className="form-group label-floating">
+     <>
+
+      <h6 className="info-text pt-5 mb-5 text-center">
+          Almost Done!
+      </h6>
+  
+                          
+                              <div className="row">
+                                <div className="col-md-6">
+                                {/* <div className="form-group label-floating">
                                 <label className="control-label">Pin Number</label>
                                 <input 
                                 name="pin" 
@@ -90,23 +89,81 @@ export default function Finish(props) {
                                 onChange={handleChange}
                                 value={pin}
                                
-                                />
+                                /> */}
+                           
+                            <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                    <Icon.Upload size={14}  className="mr-2"/> 
+                                    Upload Incorporation Certificate
+                                  </Button>
+                                </Upload>
                             </div>
-                        </div>
-                    </div>
-                            <h5 className="text-center">Company Directors:</h5>
+                            <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                  <Icon.Upload size={14}  className="mr-2"/> 
+                                    Upload KRA Pin
+                                  </Button>
+                                </Upload>
+                            </div>
+                            <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                  <Icon.Upload size={14}  className="mr-2"/> 
+                                    Upload CR 12
+                                  </Button>
+                                </Upload>
+                            </div>
+
+                                </div>
+                                <div className="col-md-6">
+                                <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                  <Icon.Upload size={14}  className="mr-2"/> 
+                                  Upload Practising License
+                                  
+                                  </Button>
+                                </Upload>
+                                </div>
+                                <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                  <Icon.Upload size={14}  className="mr-2"/> 
+                                    Upload License Certificate
+                                  </Button>
+                                </Upload>
+                                </div>
+                                <div className="form-group ">
+                                <Upload {...abc}>
+                                  <Button>
+                                  <Icon.Upload size={14}  className="mr-2"/> 
+                                  Upload Mou
+                                  </Button>
+                                </Upload>
+                                </div>
+                              
+
+                                </div>
+                              </div>
+                       
+                            <h6 className="pt-3">Add Company Directors:</h6>
                             <button id="add_row" onClick={handleAddRow} class="btn btn-info text-white btn-sm py-2 float-right mb-3"><i className="fa fa-plus-circle pr-2"/>Add Director</button>
-                    </div>
-                    <div className="container">
+                  
+                  
                     <table className="table table-bordered table-hover" id="tab_logic">
                               <thead className="bg-light">
 
                                 <tr >
-                                  {/* <th Name="">
+                                  <th Name="">
                                     #
-                                  </th> */}
+                                  </th>
                                   <th class="">
                                  Name
+                                  </th>
+                                  <th class="">
+                                 ID/Passport
                                   </th>
                                   <th class="text-center">
                                 Email
@@ -154,18 +211,8 @@ export default function Finish(props) {
                               </tbody>
                             </table>
               
-                </div> 
-                </div> 
-            </div>
-            <div className="wizard-footer"> 
-                <div className="pull-right">
-                    <input type="button" className="btn btn-next btn-fill btn-danger btn-wd" defaultValue="Submit" onClick={()=>console.log("form submitted")} />
-                </div>
-                <div className="pull-left">
-                    <input type="button" className="btn btn-previous btn-fill btn-default btn-wd" name="previous" defaultValue="Previous" onClick={back} />
-                </div>
-                <div className="clearfix" />
-            </div> 
-        </div>
+          
+                </>
+   
     )
 }

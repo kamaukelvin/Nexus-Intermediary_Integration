@@ -1,13 +1,26 @@
 import React from 'react'
+import * as Icon from 'react-feather';
+import pic from "../../assets/images/avatar.png"
+
+
+
+
+
+
+
+
 
 export default function Nav_Content() {
+
+  // const{DropdownTrigger,DropdownContent}=Dropdown
+
     return (
         <nav className="navbar navbar-expand-lg">
         <ul className="list-inline list-unstyled mg-r-20">
           {/* Mobile Toggle and Logo */}
-          <li className="list-inline-item align-text-top"><a className="hidden-md hidden-lg" href="#" id="sidebar-toggle-button"><i className="ion-navicon tx-20" /></a></li>
+          <li className="list-inline-item align-text-top"><a className="hidden-md hidden-lg" href="#" id="sidebar-toggle-button"><Icon.Menu/></a></li>
           {/* PC Toggle and Logo */}
-          <li className="list-inline-item align-text-top"><a className="hidden-xs hidden-sm" href="#" id="collapsed-sidebar-toggle-button"><i className="ion-navicon tx-20" /></a></li>
+          <li className="list-inline-item align-text-top"><a className="hidden-xs hidden-sm" href="#" id="collapsed-sidebar-toggle-button"><Icon.Menu/></a></li>
         </ul>
         {/*/ Brand and Logo End */}
         {/*================================*/}
@@ -15,13 +28,14 @@ export default function Nav_Content() {
         {/*================================*/}
         <div className="header-right pull-right ml-auto">
           <ul className="list-inline justify-content-end">
-            <li className="list-inline-item align-middle"><a href="#" id="search-button"><i className="ion-ios-search-strong tx-20" /></a></li>
+            <li className="list-inline-item align-middle"><a href="#" id="search-button"><Icon.Search size={18}/></a></li>
             {/*================================*/}
             {/* Notifications Dropdown Start */}
             {/*================================*/}
             <li className="list-inline-item dropdown hidden-xs">
+             
               <a className="notification-icon" href role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="icon-bell tx-16" />
+                <Icon.Bell size={18}/>
                 <span className="notification-count wave in" />
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow-2">
@@ -113,6 +127,7 @@ export default function Nav_Content() {
                   </div>
                 </div>
               </div>
+              
             </li>
             {/*/ Notifications Dropdown End */}
             {/*================================*/}
@@ -120,7 +135,7 @@ export default function Nav_Content() {
             {/*================================*/}
             <li className="list-inline-item dropdown hidden-xs">
               <a className="message-icon" href role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="icon-envelope tx-16" />
+                <Icon.Mail size={18}/>
                 <span className="messages-count wave in" />
               </a>
               <div className="dropdown-menu dropdown-menu-right shadow-2">
@@ -234,7 +249,7 @@ export default function Nav_Content() {
             {/* Profile Dropdown Start */}
             {/*================================*/}
             <li className="list-inline-item dropdown">
-              <a href data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="select-profile">Hi, John!</span><img src="assets/images/avatar-placeholder.png"  className="img-fluid wd-35 ht-35 rounded-circle" alt="" /></a>
+              <a href data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="select-profile">Hi, User!</span><img src={pic}  className="img-fluid wd-35 ht-35 rounded-circle" alt="" /></a>
               <div className="dropdown-menu dropdown-menu-right dropdown-profile shadow-2">
                 <div className="user-profile-area">
                   <div className="user-profile-heading">
@@ -262,7 +277,7 @@ export default function Nav_Content() {
             {/*================================*/}
             <li className="list-inline-item dropdown hidden-xs">
               <a className="settings-icon" id="settingSidebarTrigger" href data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i className="icon-settings tx-16" />
+                <Icon.Settings size={18}/>
               </a>					   
             </li>
             {/*/ Setting Sidebar End */}

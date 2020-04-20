@@ -1,14 +1,8 @@
 import React from 'react'
-import Spinner from '../../../assets/images/Rolling2.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSync } from '@fortawesome/free-solid-svg-icons'
 
-
-const PageLoader=()=> {
-    return (
-        <div  className="center">
-            
-       <span><img src={Spinner} alt="spinner" /></span> 
-        </div>
-    )
-}
-
-export default PageLoader
+export default props =>
+  <div className={`fadeIn ${props.spinning}`}>
+    <FontAwesomeIcon icon={faSync} size={props.size} />
+  </div>  

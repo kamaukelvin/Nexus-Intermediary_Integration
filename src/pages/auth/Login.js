@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import '../../assets/css/dashboard.css'
 import bg from "../../assets/images/bg/bg-7.jpg";
-import pic from "../../assets/images/auth/login.svg"
-import Logo from "../../assets/images/nexus_logo.jpg";
+import pic from "../../assets/images/auth/login.jpg"
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Loader from "../../components/widgets/loader";
-//  React Notification
-import { NotificationManager } from "react-notifications";
+import { useToasts } from 'react-toast-notifications'
+
 
 //  Validation
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -16,10 +15,12 @@ import * as Yup from "yup";
 import { setUserSession } from "../../utils/Common";
 
 const Login = (props) => {
+
+  const { addToast } = useToasts();
   // states
 
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
     showPassword: false,
     rememberMe: false,
@@ -29,7 +30,7 @@ const Login = (props) => {
   const [error, setError] = useState("");
 
   //  destructure
-  const { email, password } = user;
+  const { username, password } = user;
   const { history } = props;
 
   // methods
@@ -62,8 +63,21 @@ console.log("this is the stet of login"+JSON.stringify(user))
   const login = () => {
     console.log("login functiom")
     const body = {
-      email,
-      password,
+      
+        "resource":"login",
+        "action":"login",
+        "data" :{
+          "username" :`${username}`,
+          "password":`${password}`,
+          "device_details" :{
+              "device_type" :"CHROME",
+                "device_category" :"WEB" ,
+              "device_version" :"V1" ,
+              "device_name" :"CHROME" ,
+                "device_uuid" :"1223455"
+          }
+        }
+      
     };
 
     const config = {
@@ -73,21 +87,18 @@ console.log("this is the stet of login"+JSON.stringify(user))
     };
 
     axios
-      .post(
-        "https://yotemarket.co.ke/kev/api/login.php",
-        JSON.stringify(body),
-        config
-      )
+    .post( 'http://api.nexus.ke/api/web/v1/intermediary',body, config)
       .then((res) => {
-        setUser({ loading: false });
-        setUserSession(res.data.jwt);
+        setUser({ ...user});
+        setUser({...user, loading:false})
+        // addToast(`Verification link sent successfully to ${user.email}`, { appearance: 'success',  autoDismiss: true })
         history.push("/dashboard");
       })
       // errors are printed out in the console
-      .catch((error) => {
-        console.log("we are at the error and error is" + JSON.stringify(error));
-        setError(error.message);
-        NotificationManager.error(error.message, "Failed");
+      .catch((err) => {
+        console.log("we are at the error and error is" + JSON.stringify(err));
+        setError(err.response.data.err_msg);
+        addToast(err.response.data.err_msg, { appearance: 'error',autoDismiss: true, } )
         setUser({ loading: false });
       });
     setUser({ loading: true });
@@ -100,9 +111,9 @@ console.log("this is the stet of login"+JSON.stringify(user))
       enableReinitialize
       initialValues={user}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email("Please enter a valid email")
-          .required("Email is required"),
+        username: Yup.string()
+          // .email("Please enter a valid email")
+          .required("Username is required"),
         password: Yup.string()
           .min(6, "Password must be at least 6 characters")
           .required("Password is required"),
@@ -130,17 +141,7 @@ console.log("this is the stet of login"+JSON.stringify(user))
                 alt="Logo"
               />
             </Link>
-{/* 
-            <div className=" align-self-center text-white">
-              <h3>Welcome to Nexus</h3>
-            
-              <p className="">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
-                itaque debitis doloribus?Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Amet itaque debitis doloribus?met itaque
-                debitis doloribus?
-              </p>
-            </div> */}
+
 
             <div
               className=""
@@ -171,27 +172,27 @@ console.log("this is the stet of login"+JSON.stringify(user))
                   left: "25%",
                 }}
               >
-                {error ? (
+                {/* {error ? (
                   <div role="alert" className="alert alert-danger">
                     <div className="alert-text">{error}</div>
                   </div>
-                ) : null}
+                ) : null} */}
                 <h2 className="text-center mb-5">Login Account</h2>
                 <Form className="login-form">
                   <div className="form-group">
                     <label htmlFor="exampleInputPassword1">Username</label>
                     <Field
-                      name="email"
+                      name="username"
                       type="text"
-                      value={user.email}
+                      value={user.username}
                       onChange={handleChange}
                       className={
                         "form-control border" +
-                        (errors.email && touched.email ? " is-invalid" : "")
+                        (errors.username && touched.username ? " is-invalid" : "")
                       }
                     />
                     <ErrorMessage
-                      name="email"
+                      name="username"
                       component="div"
                       className="invalid-feedback"
                     />
@@ -229,10 +230,15 @@ console.log("this is the stet of login"+JSON.stringify(user))
                       <small>Remember Me</small>
                     </label>
                   </div>
+                 
+                  <p className="text-right ">
+               <Link to="/password-reset">Forgot Password?</Link>
+              </p>
+              <p>
                   <button
                     type="submit"
                     disabled={user.loading}
-                    className="btn btn-login float-right"
+                    className="btn btn-login btn-block"
                     // onClick={login}
                   >
                     {user.loading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
@@ -244,9 +250,10 @@ console.log("this is the stet of login"+JSON.stringify(user))
                       <span className="text-capitalize"> Login</span>
                     )}
                   </button>
-                </Form>
-                <p className="float-right pt-5 mt-5">
-                Don't have an account yet? <Link to="/signup">Sign Up!</Link>
+                  </p>
+                   </Form>
+                <p className="pt-3">
+                Don't have an account yet? <Link to="/signup">Create Account</Link>
               </p>
               </div>
             </div>

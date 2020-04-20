@@ -17,7 +17,7 @@ export default function Transparentnav() {
         </div>
         {/* Header Primary */}
         <div className="header__primary">
-          <div className="container">
+          <div className="container shadow-none">
             <div className="header__primary-inner">
               {/* Header Logo */}
               <div className="header-logo">

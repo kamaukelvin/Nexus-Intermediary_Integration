@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Icon from 'react-feather';
 
 export default function index() {
     return (
@@ -12,7 +13,8 @@ export default function index() {
                             </div>
                             <div className="d-flex align-items-center text-dark">
                                 <div className="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-warning">
-                                    <i className="icon-screen-desktop tx-warning tx-20" />
+
+                                    <Icon.Users />
                                 </div>
                                 <div>
                                     <h2 className="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span className="counter">42</span></h2>
@@ -31,7 +33,8 @@ export default function index() {
                 </div>
                 <div className="d-flex align-items-center text-dark">
                   <div className="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-success">
-                    <i className="icon-diamond tx-success tx-20" />
+                  
+                    <Icon.Briefcase/>
                   </div>
                   <div>
                     <h2 className="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span className="counter">21</span></h2>
@@ -50,7 +53,8 @@ export default function index() {
                 </div>
                 <div className="d-flex align-items-center text-dark">
                   <div className="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-primary">
-                    <i className="icon-handbag tx-primary tx-20" />
+                    
+                    <Icon.FileText/>
                   </div>
                   <div>
                     <h2 className="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span className="counter">19</span></h2>
@@ -69,7 +73,8 @@ export default function index() {
                 </div>
                 <div className="d-flex align-items-center text-dark">
                   <div className="wd-40 wd-md-50 ht-40 ht-md-50 mg-r-10 mg-md-r-10 d-flex align-items-center justify-content-center rounded card-icon-danger">
-                    <i className="icon-speedometer tx-danger tx-20" />
+           
+                    <Icon.Globe/>
                   </div>
                   <div>
                     <h2 className="tx-20 tx-sm-18 tx-md-24 mb-0 mt-2 mt-sm-0 tx-normal tx-rubik tx-dark"><span className="counter">23</span></h2>

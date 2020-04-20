@@ -1,6 +1,39 @@
 import React from 'react'
+import * as Icon from 'react-feather';
 
 export default function index() {
+
+
+  const rows = [
+    {
+      'image': '',
+      'name': 'Stanley Owens',
+      'description': 'Nexus Insurance',
+      'request_date': '12/03/2020',
+      'status':'completed'
+    },
+    {
+      'image': '',
+      'name': 'John Doe',
+      'description': 'AIG Insurance',
+      'request_date': '12/03/2020',
+      'status':'declined'
+    },
+    {
+      'image': '',
+      'name': 'Adam Easter',
+      'description': 'Britam Insurance',
+      'request_date': '12/03/2020',
+      'status':'pending'
+    },
+    {
+      'image': '',
+      'name': 'Robert Owens',
+      'description': 'Dhl',
+      'request_date': '12/03/2020',
+      'status':'completed'
+    },
+  ]
     return (
         <div className="col-md-12 col-xl-8">
         <div className="card mg-b-20">
@@ -8,11 +41,6 @@ export default function index() {
             <h4 className="card-header-title">
               Recent Requests
             </h4>
-            <div className="card-header-btn">
-              <a href="#" data-toggle="collapse" className="btn card-collapse" data-target="#customerDetails" aria-expanded="true"><i className="ion-ios-arrow-down" /></a>
-              <a href="#" data-toggle="refresh" className="btn card-refresh"><i className="ion-android-refresh" /></a>
-              <a href="#" data-toggle="expand" className="btn card-expand"><i className="ion-android-expand" /></a>
-            </div>
           </div>
           <div className="card-body pd-0 collapse show" id="customerDetails">
             <div className="table-responsive">
@@ -26,106 +54,35 @@ export default function index() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="d-flex align-items-center">
-                      <div className="avatar mr-2">
-                        <img src="https://via.placeholder.com/100x100" className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
-                      </div>
-                      <div className="d-block">
-                        <a href className="my-0 mt-1 tx-13">Stanley C. Owens</a>		
-                        <p className="tx-12 mg-0 tx-gray-500">New Jersey, UK</p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="tx-12 mb-0 ">12/04/2020</p>
-                    </td>
-                    <td>
-                      <span className="badge badge-warning">Pending</span>
-                    </td>
-                    <td className="tx-right">
-                      <a href className="btn btn-sm btn-label-primary">Contact</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="d-flex align-items-center">
-                      <div className="avatar mr-2">
-                        <img src="https://via.placeholder.com/100x100" className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
-                      </div>
-                      <div className="d-block">
-                        <a href className="my-0 mt-1 tx-13">John Doe</a>			
-                        <p className="tx-12 mg-0 tx-gray-500">New Jersey, UK</p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="tx-12 mb-0 tx-dark-500">03/04/2020</p>
-                    </td>
-                    <td>
-                      <span className="badge badge-success">Completed</span>
-                    </td>
-                    <td className="tx-right">
-                      <a href className="btn btn-sm btn-label-warning">Contact</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="d-flex align-items-center">
-                      <div className="avatar mr-2">
-                        <img src="https://via.placeholder.com/100x100" className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
-                      </div>
-                      <div className="d-block">
-                        <a href="#" className="my-0 mt-1 tx-13">Stanley Owens</a>		
-                        <p className="tx-12 mg-0 tx-gray-500">New Jersey, UK</p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="tx-12 mb-0 tx-gray-500">23/03/2020</p>
-                    </td>
-                    <td>
-                      <span className="badge badge-danger">Declined</span>
-                    </td>
-                    <td className="tx-right">
-                      <a href className="btn btn-sm btn-label-success">Contact</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="d-flex align-items-center">
-                      <div className="avatar mr-2">
-                        <img src="https://via.placeholder.com/100x100" className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
-                      </div>
-                      <div className="d-block">
-                        <a href className="my-0 mt-1 tx-13">Adam L. Easter</a>		
-                        <p className="tx-12 mg-0 tx-gray-500">New Jersey, UK</p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="tx-12 mb-0 tx-gray-500">08/02/2020</p>
-                    </td>
-                    <td>
-                      <span className="badge badge-success">Completed</span>
-                    </td>
-                    <td className="tx-right">
-                      <a href className="btn btn-sm btn-label-danger">Contact</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="d-flex align-items-center">
-                      <div className="avatar mr-2">
-                        <img src="https://via.placeholder.com/100x100" className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
-                      </div>
-                      <div className="d-block">
-                        <a href className="my-0 mt-1 tx-13">Jeffery M. Jensen</a>			
-                        <p className="tx-12 mg-0 tx-gray-500">New Jersey, UK</p>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="tx-12 mb-0 tx-gray-500">25/03/2020</p>
-                    </td>
-                    <td>
-                      <span className="badge badge-warning">Pending</span>
-                    </td>
-                    <td className="tx-right">
-                      <a href className="btn btn-sm btn-label-success">Contact</a>
-                    </td>
-                  </tr>
+               
+                    {rows.map(row=>{
+                      return(
+                        <tr>
+                        <td className="d-flex align-items-center">
+                        <div className="avatar mr-2">
+                          <img src={row.image} className="img-fluid wd-40 ht-40 rounded-circle" alt="" />
+                        </div>
+                        <div className="d-block">
+                          <a href className="my-0 mt-1 tx-13">{row.name}</a>		
+                          <p className="tx-12 mg-0 tx-gray-500">{row.description}</p>
+                        </div>
+                      </td>
+                      <td>
+                        <p className="tx-12 mb-0 ">{row.request_date}</p>
+                      </td>
+                      <td>
+                        <span className={`badge ${row.status==='pending'?'badge-warning': row.status==='completed'?'badge-success':'badge-danger'}`}>{row.status}</span>
+                      </td>
+                      <td className="tx-right">
+                        <a href className="btn btn-sm btn-label-primary"><Icon.MoreHorizontal/></a>
+                      </td>
+                      </tr>
+                      )
+                    })}
+                  
+                
+          
+              
                 </tbody></table>
             </div>
           </div>

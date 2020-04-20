@@ -1,5 +1,4 @@
 import React,{useState, useEffect} from 'react';
-import './App.css';
 // import './assets/css/custom.css'
 import axios from 'axios'
 import Loader from './components/widgets/loader/PageLoader'
@@ -8,7 +7,8 @@ import Home from'./pages/Home';
 import Login from'./pages/auth/Login';
 import Credentials from './pages/auth/Credentials';
 import Signup from'./pages/auth/Signup';
-import KYC from './pages/auth/KYC';
+import Kyc from './pages/auth/Kyc';
+import VerifyEmail from './pages/auth/VerifyEmail';
 
 
 
@@ -16,8 +16,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Switch} from 'react-router-dom';
 
 // react-notification
-import 'react-notifications/lib/notifications.css'
-import { NotificationContainer } from 'react-notifications';
+
+import { ToastProvider} from 'react-toast-notifications'
 
 // authentication
 import PrivateRoute from './utils/PrivateRoute'
@@ -74,19 +74,21 @@ function App() {
   
       <div className="App">
        
-      
+      <ToastProvider>
         <Switch>
             <Route exact path="/" component={Home}/>
             <PublicRoute exact  path="/login" component={Login}/>
             <PublicRoute exact  path="/credentials" component={Credentials}/>
+            <PublicRoute exact  path="/verify" component={VerifyEmail}/>
        
             <Route exact  path="/signup" component={Signup}/>
-            <Route exact  path="/kyc" component={KYC}/>
-            <Route exact path= "/dashboard" component={Dashboard}/>
+            <Route exact  path="/kyc" component={Kyc}/>
+            <PublicRoute exact path= "/dashboard" component={Dashboard}/>
    
             <Route component={Error}/>
-            <NotificationContainer />
+            
           </Switch>
+          </ToastProvider>
       </div>
 
   );
