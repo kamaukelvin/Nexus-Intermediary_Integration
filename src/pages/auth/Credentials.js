@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bg from "../../assets/images/auth/credentials.jpg";
+import bg from "../../assets/images/auth/credentials3.jpg";
 import Logo from "../../assets/images/nexus_logo.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -156,7 +156,7 @@ const Credentials = (props) => {
       {({ errors, touched }) => (
         <div className="d-flex">
           <div
-            className="col-md-5 d-flex "
+            className="col-md-6 d-flex "
             style={{
               backgroundImage: `url(${bg})`,
               backgroundSize: "cover",
@@ -194,14 +194,14 @@ const Credentials = (props) => {
               <Link to="#" className="">
                 Terms and conditions |
               </Link>
-              <Link to="#" className=" text-white">
+              <Link to="#" className=" ">
                 {" "}
                 &copy; 2020 Nexus
               </Link>
             </div>
           </div>
 
-          <div className="col-md-7">
+          <div className="col-md-6">
             <div className="container">
              
               <div

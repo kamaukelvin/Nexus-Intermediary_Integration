@@ -3,10 +3,22 @@ import {KycContext} from '../../context/KycContext'
 import { Upload, message, Button } from 'antd'
 import 'antd/dist/antd.css';
 import * as Icon from 'react-feather';
+import {ModalContext} from '../../context/ModalContext'
+import AddDirector from '../widgets/modals/AddDirector'
 
 
 
 export default function Finish(props) {
+
+  // MODAL CONTEXT
+
+  const modalContext = useContext(ModalContext)
+  const {setModalShow, modalShow, modalClose} =modalContext
+
+  // KYC CONTEXT
+  const context = useContext(KycContext)
+  const {kyc, setKyc}= context
+  const {pin, certificate, directors } = kyc
 
   const abc = {
     name: 'file',
@@ -26,35 +38,22 @@ export default function Finish(props) {
     },
   }
 
-  const context = useContext(KycContext)
-  const {kyc, setKyc}= context
-  const {pin, certificate, directors } = kyc
+ 
 
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    setKyc({
-      ...kyc,
-      [evt.target.name]: value,
-    });
-  }
-  const handleRowChange=(index)=>e=>{
-      const {name, value} =e.target;
-      const rows = [...directors];
-      rows[index]={...rows[index],[name]:value};
-      setKyc({ ...kyc, directors:rows})
-    }
-    const handleAddRow = (e)=>{
-      e.preventDefault()
-      const item ={
-        image:null,
-        director_name:'',
-        id: '',
-        email:'',
-
-      };
-      setKyc({ ...kyc, directors:[...directors,item]})
-   
-    }
+  // const handleChange = (evt) => {
+  //   const value = evt.target.value;
+  //   setKyc({
+  //     ...kyc,
+  //     [evt.target.name]: value,
+  //   });
+  // }
+  // const handleRowChange=(index)=>e=>{
+  //     const {name, value} =e.target;
+  //     const rows = [...directors];
+  //     rows[index]={...rows[index],[name]:value};
+  //     setKyc({ ...kyc, directors:rows})
+  //   }
+  
     const handleRemoveRow=(index)=>(e)=>{
       e.preventDefault()
       const rows = [...directors]
@@ -149,26 +148,35 @@ export default function Finish(props) {
                               </div>
                        
                             <h6 className="pt-3">Add Company Directors:</h6>
-                            <button id="add_row" onClick={handleAddRow} class="btn btn-info text-white btn-sm py-2 float-right mb-3"><i className="fa fa-plus-circle pr-2"/>Add Director</button>
-                  
+                            <button id="add_row" onClick={() => setModalShow(true)} class="btn btn-outline-primary  btn-sm py-2 float-right mb-3"><i className="fa fa-plus-circle pr-2"/>Add Director</button>
+                            <AddDirector show={modalShow} onHide={modalClose} />
                   
                     <table className="table table-bordered table-hover" id="tab_logic">
                               <thead className="bg-light">
 
                                 <tr >
-                                  <th Name="">
-                                    #
+                                  <th className="">
+                                    Image
                                   </th>
-                                  <th class="">
+                                  <th className="">
                                  Name
                                   </th>
-                                  <th class="">
+                                  <th className="">
                                  ID/Passport
                                   </th>
-                                  <th class="text-center">
+                                  <th className="text-center">
+                             Pin No.
+                                  </th>
+                                  <th className="text-center">
+                                Phone
+                                  </th>
+                                  <th className="text-center">
                                 Email
                                   </th>
-                                  <th class="text-center"/>
+                                  <th className="text-center">
+                                Address
+                                  </th>
+                                  <th className="text-center"/>
                                    
                                
                                 </tr>
@@ -176,32 +184,35 @@ export default function Finish(props) {
                               <tbody>
                                 {directors.map((director, index)=>{
                                   return(
-                                  <tr key={index}>
+                                  <tr >
                                     {/* <td className="text-center"></td> */}
-                                    <td className="">
-                                    <input
-                                        type="text"
-                                        name="director_name"
-                                        value={directors[index].name}
-                                        onChange={handleRowChange(index)}
-                                        className="form-control"
-                                      />
+          
+                                    <td className="text-center">{director.image}</td>
+                               
+                                    <td className="text-center">
+                                      {director.name}
                                     </td>
                                     <td className="text-center">
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        value={directors[index].email}
-                                        onChange={handleRowChange(index)}
-                                        className="form-control"
-                                      />
+                                 {director.id_number}
+                                    </td>
+                                    <td className="text-center">
+                                   {director.director_pin}
+                                    </td>
+                                    <td className="text-center">
+                                   {director.contact}
+                                    </td>
+                                    <td className="text-center">
+                                   {director.email}
+                                    </td>
+                                    <td className="text-center">
+                                  {director.address}
                                     </td>
                                     <td className="text-center">
                                     <button
-                                      className="btn btn-outline-danger btn-xs"
+                                      className="btn btn-outline-none btn-xs"
                                       onClick={handleRemoveRow(index)}
                                         >
-                                          <i className="fa fa-trash"></i>
+                                          <i className="fa fa-trash text-danger"></i>
                                          
                         </button>
                                     </td>

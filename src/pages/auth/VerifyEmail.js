@@ -55,8 +55,8 @@ const styles={
       .then(res => {
           console.log("this is response" + JSON.stringify(res))
         setConfirming(false)
-        // setId(res.data.results.registration_setup_id)
-        // localStorage.setItem('myid', `${id}`)
+        setId(res.data.results.registration_setup_id)
+        localStorage.setItem('myid', `${id}`)
         addToast(res.data.result.status, { appearance: 'success',autoDismiss: true, } )
         history.push('/credentials')
       })

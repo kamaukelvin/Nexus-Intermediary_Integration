@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../../assets/css/dashboard.css'
 import bg from "../../assets/images/bg/bg-7.jpg";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -169,7 +170,7 @@ const Signup = (props) => {
                 bottom: "0",
               }}
             >
-              <Link to="#" className="">
+              <Link to="#" className="text-white">
                 Terms and conditions |
               </Link>
               <Link to="#" className=" text-white">

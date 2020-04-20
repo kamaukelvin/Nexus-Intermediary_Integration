@@ -47,7 +47,7 @@ export default class Kyc extends Component {
     const { current } = this.state;
     return (
       <div className="d-flex">
-        <div className="col-md-6 d-flex " style={{backgroundImage: `url(${pic})`,backgroundSize: "cover", backgroundPosition: "center",width: "80vw",height:"100vh"}}>
+        <div className="col-md-5 d-flex " style={{backgroundImage: `url(${pic})`,backgroundSize: "cover", backgroundPosition: "center",width: "80vw",height:"100vh"}}>
           <Link to="/" className="">
             <img style={{ height: "100px",width: "100px",}}alt="Logo" />
           </Link>
@@ -60,7 +60,7 @@ export default class Kyc extends Component {
             </Link>
           </div>
         </div>
-        <div className="col-md-6 px-5">
+        <div className="col-md-7 px-5">
        
         <h2 className="text-center my-5">Help us know you better</h2>
         <Steps current={current}>
