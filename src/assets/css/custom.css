@@ -498,6 +498,14 @@ a.btn.btn-circle.my-social-btn {
     background-color: #001f5f !important;
 }
 
+.centerdiv{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%)
+  }
+
+
 
 /* Footer */
 /* footer.footer{padding:2rem 0;}

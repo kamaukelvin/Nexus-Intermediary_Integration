@@ -77,6 +77,8 @@ const Credentials = (props) => {
   //  Login in user
 
   const submitCredentials = () => {
+
+    const reg_id = localStorage.getItem('registration_id')
    
     const body = 
 
@@ -84,7 +86,7 @@ const Credentials = (props) => {
         "resource":"registration",
         "action":"credential",
         "data" :{
-            "registration_setup_id": "5e9818631a04617810a9aef6" ,
+            "registration_setup_id": `${reg_id}` ,
              "tnc" : `${tnc}`,
              "names":`${firstName +""+ lastName}`,
              "contact":`${contact}`,
@@ -111,16 +113,18 @@ const Credentials = (props) => {
  
       .then((res) => {
         setLoading(false);
-        history.push("/dashboard");
+        localStorage.removeItem('registration_id')
+        history.push("/kyc");
       })
       // errors are printed out in the console
       .catch((err) => {
-        console.log("we are at the error and error is" + JSON.stringify(err));
+        console.log("we are at the error and error is" + JSON.stringify(err.response));
         setError(err.response.data.err_msg);
         addToast(err.response.data.err_msg, { appearance: 'error',autoDismiss: true, } )
         setLoading(false);
       });
       setLoading(true);
+      console.log("this is the id"+ reg_id)
   };
 
 
@@ -212,11 +216,11 @@ const Credentials = (props) => {
                   left: "25%",
                 }}
               >
-                {error ? (
+                {/* {error ? (
                   <div role="alert" className="alert alert-danger">
                     <div className="alert-text">{error}</div>
                   </div>
-                ) : null}
+                ) : null} */}
                 <h2 className="text-center mb-5">Set up your Credentials</h2>
                 <Form className="login-form">
                   <div className="form-row">

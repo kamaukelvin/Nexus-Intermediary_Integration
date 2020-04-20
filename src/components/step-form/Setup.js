@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import * as Icon from 'react-feather';
 import {ModalContext} from '../../context/ModalContext'
 import AddDirector from '../widgets/modals/AddDirector'
+import '../../assets/css/dashboard.css'
 
 
 
@@ -187,7 +188,11 @@ export default function Finish(props) {
                                   <tr >
                                     {/* <td className="text-center"></td> */}
           
-                                    <td className="text-center">{director.image}</td>
+                                    <td className="text-center">
+                                    <div className="profile-thumbnail">
+                                    <img src="https://via.placeholder.com/100x100" className="img-fluid wd-35 ht-35 rounded-circle" alt="" />
+                                  </div>
+                                      </td>
                                
                                     <td className="text-center">
                                       {director.name}
