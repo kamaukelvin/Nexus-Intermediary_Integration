@@ -89,9 +89,10 @@ console.log("this is the stet of login"+JSON.stringify(user))
     axios
     .post( 'http://api.nexus.ke/api/web/v1/intermediary',body, config)
       .then((res) => {
-        setUser({ ...user});
         setUser({...user, loading:false})
-        // addToast(`Verification link sent successfully to ${user.email}`, { appearance: 'success',  autoDismiss: true })
+        // sessionStorage.setItem('token',res.data.result.token )
+        setUser({username:'', password:'', rememberMe:false});
+        
         history.push("/dashboard");
       })
       // errors are printed out in the console
@@ -99,7 +100,8 @@ console.log("this is the stet of login"+JSON.stringify(user))
         console.log("we are at the error and error is" + JSON.stringify(err));
         setError(err.response.data.err_msg);
         addToast(err.response.data.err_msg, { appearance: 'error',autoDismiss: true, } )
-        setUser({ loading: false });
+        setUser({username:'', password:'', rememberMe:false,loading: false});
+   
       });
     setUser({ loading: true });
   };

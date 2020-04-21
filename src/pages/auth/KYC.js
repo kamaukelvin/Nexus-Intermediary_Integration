@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import pic from "../../assets/images/auth/kyc.jpg"
 import Selection from '../../components/step-form/Selection'
 import Setup from '../../components/step-form/Setup'
+import Confirm from '../../components/step-form/Confirm'
 
 
 const { Step } = Steps;
@@ -21,7 +22,7 @@ const steps = [
   },
   {
     title: 'Confirm',
-    content: 'Third-content',
+    content: <Confirm/>,
   },
 
 ];

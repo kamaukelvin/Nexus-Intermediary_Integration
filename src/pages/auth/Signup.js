@@ -18,7 +18,7 @@ const Signup = (props) => {
 
   const [user, setUser] = useState({
 
-    ira_code: "1456",
+    ira_code: "",
     category:"",
     email: ""
   });
@@ -68,12 +68,14 @@ const Signup = (props) => {
     axios
       .post( 'http://api.nexus.ke/api/web/v1/intermediary',body, config)
       .then((res) => {
-
         setUser({ ...user});
         setLoading(false)
+       
         addToast(`Verification link sent successfully to ${user.email}`, { appearance: 'success',  autoDismiss: true })
-
-        console.log("successful"+ res)
+        
+        // clear fields
+         setUser({ira_code:'',email:'', password:''})
+          console.log("successful"+ res)
       })
      
       .catch((err) => {

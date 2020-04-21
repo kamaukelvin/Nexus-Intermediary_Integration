@@ -6,14 +6,9 @@ const ModalContextProvider =(props)=>{
 
     const [modalShow, setModalShow] = useState(false)
 
-
-
     const modalClose =()=>{
       setModalShow(false)
     }
-
-
-
 
 
 return (

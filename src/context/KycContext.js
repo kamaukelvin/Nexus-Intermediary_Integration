@@ -1,4 +1,5 @@
 import React, {useState,createContext} from 'react'
+import axios from 'axios'
 
 
 const KycContext= createContext()
@@ -8,17 +9,23 @@ const KycContextProvider =(props)=>{
 
 const [kyc, setKyc]= useState({
     intermediary:"",
-    certificate:null,
-    subscribed: false,
-    pin:"",
+    documents:[],
     directors: [],
- 
+    fileList:[],
+    previewVisible: false,
+    previewImage:''
 
 })
- 
+
+const [image, setImage]= useState({
+    previewVisible: false,
+    previewImage: "",
+    fileList: []
+  })
+
 
 return (
-        <KycContext.Provider value={{setKyc,kyc}}>
+        <KycContext.Provider value={{setKyc,kyc, image, setImage}}>
             {props.children}
         </KycContext.Provider>
     )

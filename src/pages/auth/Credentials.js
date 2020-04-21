@@ -114,7 +114,7 @@ const Credentials = (props) => {
       .then((res) => {
         setLoading(false);
         localStorage.removeItem('registration_id')
-        history.push("/kyc");
+        history.push("/login");
       })
       // errors are printed out in the console
       .catch((err) => {

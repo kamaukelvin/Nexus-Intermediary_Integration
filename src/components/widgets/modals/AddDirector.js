@@ -1,20 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Modal } from "react-bootstrap";
-import {
-    message,
-    notification,
-    Input,
-    Upload,
-    Button
-  } from 'antd'
-  import * as Icon from 'react-feather';
+import { notification,Upload} from 'antd'
+import * as Icon from 'react-feather';
+
 import {ModalContext} from "../../../context/ModalContext"
 import {KycContext} from "../../../context/KycContext"
+
 //  Validation
 import { Formik,  Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
-
+import axios from "axios";
 
 
 const AddDirector = (props)=> {
@@ -22,12 +17,14 @@ const AddDirector = (props)=> {
     const context = useContext(ModalContext)
     const {modalClose}= context
     const kycContext = useContext(KycContext)
-    const {kyc, setKyc}= kycContext
+    const {kyc, setKyc, }= kycContext
     const { directors } = kyc
 
 
+
+    // states
     const [newDirector, setNewDirector] =useState({
-     image:null,
+
       firstName:'',
       lastName:'',
       director_pin:'',
@@ -38,12 +35,58 @@ const AddDirector = (props)=> {
 
     });
 
-    // const [image, setImage] = useState(null);
+      const [image, setImage]= useState({
+        previewVisible: false,
+        previewImage: "",
+        fileList: []
+      })
 
-    const {image, firstName, lastName,director_pin,id_number,email,contact,address}= newDirector;
+      // onChangeHandlers
+    const handleCancel = () => setImage({ previewVisible: false });
+    const handlePreview = file => {
+  setImage({
+    previewImage: file.thumbUrl,
+    previewVisible: true
+  });
+};
 
+const handleUpload = ({ fileList }) => {
+  console.log('fileList', fileList);
+  setImage({ fileList });
+};
+
+const handleSubmit = event => {
+  event.preventDefault();
+
+  let formData = new FormData();
+  // add one or more of your files in FormData
+  // again, the original file is located at the `originFileObj` key
+  formData.append("file", image.fileList[0].originFileObj);
+    // headers
+    const config = {
+      headers: {
+         "Content-Type": "multipart/form-data",
+         "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbnRpdHlfaWQiOiI3IiwidXNlcl9pZCI6MjY1LCJyb2xlX2NvZGUiOiJJTl9BRE1fUkxfMDAxIiwidXNlcl90eXBlIjoiSU5URVJNRURJQVJZIiwiaWF0IjoxNTg3MDI2OTc5LCJleHAiOjE1ODk2MTg5NzksImF1ZCI6IkNsaWVudF9JZGVudGl0eSIsImlzcyI6Ik5leHVzIiwic3ViIjoiaW5mb0BuZXh1cy5rZSJ9.BK2Rs61mEoeaplDVU_kK0wokfGPwZ5m2j0S_lGXwiYOjQCawwrwbiCD-B3of3mmw0si8MG5Gcgl34Z8fg3G1QwQe9SO2YREdeyB9caWkS75gYvf9HxOeIKZXJ4KXkvXrwcV2Vic0pyCUDZpXxFqz5C2yuFqPEPvNSr-36trBGyepC8l35I36A45GBD5dseBD0PC_SxCDI751OGQbxvi01oUv8_KtJwPoI7qo0yKpx1V4XFM4BpKREk9gsyjAaqCNpJzSD4bu3-BwqaIYsho2H5Zi32Iv8pmzHJGtRl68GZQM4xeyENKjkA5vNlJGPaiySXOOybrLMsdJn3T2NXyjMQ"
+      
+      },
+    };
+  axios
+    .post("http://api.nexus.ke/api/upload/v1/intermediary/kyc", formData,config)
+    .then(res => {
+      console.log("res", JSON.stringify(res));
+    })
+    .catch(err => {
+      console.log("err", err.response);
+    });
+};
+
+// destructure
+    const { firstName, lastName,director_pin,id_number,email,contact,address}= newDirector;
+    const { previewVisible, previewImage, fileList } = image;
+
+  
     const item= {
-      image,
+      
       name: `${firstName + ""+ lastName}`,
       director_pin,
       id_number,
@@ -52,59 +95,29 @@ const AddDirector = (props)=> {
       address
       
     }
+    const kyc_token={}
 
-    const openNotification = () => {
-      notification.open({
-        message: 'Success',
-        description:
-          'Director added successfully',
-        onClick: () => {
-          console.log('Notification Clicked!')
-        },
-      })
-    }
 
     const handleAddRow = (e)=>{
       // e.preventDefault()
-
       setKyc({ ...kyc, directors:[...directors,item]})
+    
    
     }
-
-    // handle upload image
-    const fileUpload = {
-      name: 'file',
-      action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-      headers: {
-        authorization: 'authorization-text',
-      },
-      onChange(info) {
-        if (info.file.status !== 'uploading') {
-   
-          console.log(info.file, info.fileList)
-        }
-        if (info.file.status === 'done') {
-          console.log("this is the file"+ JSON.stringify(info.file))
-          setNewDirector({...newDirector, image :JSON.stringify(info.fileList)})
-          message.success(`${info.file.name} file uploaded successfully`)
-        } else if (info.file.status === 'error') {
-          message.error(`${info.file.name} file upload failed.`)
-        }
-      },
-    }
-
 
     const success=()=>{
       return(
-        openNotification(),
+
         modalClose(),
         handleAddRow()
+  
+        
       )
     }
  
     // const onChangeFileHandler=(e)=>{
-    //   // setImage(e.target.files[0])
-    //   console.log(e.target.files[0])
+    //   setImage(e.target.files[0])
+    //   console.log("file selected on file handler change" + e.target.files[0])
     // }
   
 
@@ -116,7 +129,7 @@ const AddDirector = (props)=> {
     });
   }
   
-
+ 
 
     return (
       <Formik
@@ -158,16 +171,34 @@ const AddDirector = (props)=> {
           </Modal.Header>
           <Modal.Body>
      
-          <Form className="login-form" >
+          <Form className="login-form" enctype="multipart/form-data">
           <div className="form-group ">
-              <Upload {...fileUpload} >
-                <Button>
+              <Upload 
+              
+              listType="picture-card"
+              fileList={fileList}
+              onPreview={handlePreview}
+              onChange={handleUpload}
+              beforeUpload={()=>false}
+              >
+         
+                                  <Icon.Upload size={14}/> 
+                                
+                                  
+                               
+              </Upload>
+              {/* <input type="file" onChange={onChangeFileHandler}/>
+              <Button>
                   <Icon.Upload size={14}  className="mr-2"/> 
                   Upload Photo
-                </Button>
-              </Upload>
+                </Button> */}
           </div>
-        
+          <Modal visible={previewVisible} onCancel={handleCancel} footer={null}>
+            
+ 
+          <img alt="avatar" style={{width:"100%"}} src={previewImage}/>
+          </Modal>
+      
                   <div className="form-row">
            <div className="col-md-6">
                     <div className="form-group ">
@@ -322,7 +353,7 @@ const AddDirector = (props)=> {
               color="primary"
               variant="contained"
               // type="submit"
-              onClick={success}
+              onClick={handleSubmit}
               className="btn btn-outline-success px-5 mx-auto "
             >Submit
             </button> 
