@@ -30,14 +30,12 @@ console.log(kyc)
     return (
         <>
      
-            <h6 className="text-center mt-5 info-text">
-              Select your type
-            </h6>
+     <h3 className="upload-title text-center mt-5">Select type of intermediary</h3>
            
  
-          <Radio.Group className="mt-5 row justify-content-center" value={kyc.intermediary} onChange={handleChange}>
+          <Radio.Group className="mt-5 d-flex justify-content-center" value={kyc.intermediary} onChange={handleChange}>
          
-            <div className="col-sm-4 offset-md-2 ">
+            <div className="px-5">
               <Radio className="choice"  name="radio" value={1} rel="tooltip" title="You offer, negotiate, and sells policies">
              
                   <div className="icon">
@@ -49,7 +47,7 @@ console.log(kyc)
             </div>
       
           
-            <div className="col-sm-4">
+            <div className="px-5">
               <Radio className="choice" name="radio" value={2} rel="tooltip" title="Select this if you identify risk management strategies, handle policy renewals, and track claims">
               
                 <div className="icon">

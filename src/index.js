@@ -7,8 +7,10 @@ import {BrowserRouter as Router} from "react-router-dom";
 import {KycContextProvider} from './context/KycContext'
 import {ModalContextProvider} from "./context/ModalContext"
 
+import { ToastProvider} from 'react-toast-notifications'
+
 ReactDOM.render(
-    
+    <ToastProvider>
 <KycContextProvider>
     <ModalContextProvider>
         <Router>
@@ -16,6 +18,7 @@ ReactDOM.render(
         </Router>
     </ModalContextProvider>
 </KycContextProvider>
+</ToastProvider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

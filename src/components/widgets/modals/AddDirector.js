@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { notification,Upload} from 'antd'
+import { Upload, message} from 'antd'
 import * as Icon from 'react-feather';
+import '../../../assets/css/dashboard.css'
 
 import {ModalContext} from "../../../context/ModalContext"
 import {KycContext} from "../../../context/KycContext"
+
 
 //  Validation
 import { Formik,  Form, ErrorMessage } from "formik";
@@ -17,7 +19,7 @@ const AddDirector = (props)=> {
     const context = useContext(ModalContext)
     const {modalClose}= context
     const kycContext = useContext(KycContext)
-    const {kyc, setKyc, }= kycContext
+    const {kyc, setKyc, image, setImage }= kycContext
     const { directors } = kyc
 
 
@@ -35,56 +37,9 @@ const AddDirector = (props)=> {
 
     });
 
-      const [image, setImage]= useState({
-        previewVisible: false,
-        previewImage: "",
-        fileList: []
-      })
-
-      // onChangeHandlers
-    const handleCancel = () => setImage({ previewVisible: false });
-    const handlePreview = file => {
-  setImage({
-    previewImage: file.thumbUrl,
-    previewVisible: true
-  });
-};
-
-const handleUpload = ({ fileList }) => {
-  console.log('fileList', fileList);
-  setImage({ fileList });
-};
-
-const handleSubmit = event => {
-  event.preventDefault();
-
-  let formData = new FormData();
-  // add one or more of your files in FormData
-  // again, the original file is located at the `originFileObj` key
-  formData.append("file", image.fileList[0].originFileObj);
-    // headers
-    const config = {
-      headers: {
-         "Content-Type": "multipart/form-data",
-         "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbnRpdHlfaWQiOiI3IiwidXNlcl9pZCI6MjY1LCJyb2xlX2NvZGUiOiJJTl9BRE1fUkxfMDAxIiwidXNlcl90eXBlIjoiSU5URVJNRURJQVJZIiwiaWF0IjoxNTg3MDI2OTc5LCJleHAiOjE1ODk2MTg5NzksImF1ZCI6IkNsaWVudF9JZGVudGl0eSIsImlzcyI6Ik5leHVzIiwic3ViIjoiaW5mb0BuZXh1cy5rZSJ9.BK2Rs61mEoeaplDVU_kK0wokfGPwZ5m2j0S_lGXwiYOjQCawwrwbiCD-B3of3mmw0si8MG5Gcgl34Z8fg3G1QwQe9SO2YREdeyB9caWkS75gYvf9HxOeIKZXJ4KXkvXrwcV2Vic0pyCUDZpXxFqz5C2yuFqPEPvNSr-36trBGyepC8l35I36A45GBD5dseBD0PC_SxCDI751OGQbxvi01oUv8_KtJwPoI7qo0yKpx1V4XFM4BpKREk9gsyjAaqCNpJzSD4bu3-BwqaIYsho2H5Zi32Iv8pmzHJGtRl68GZQM4xeyENKjkA5vNlJGPaiySXOOybrLMsdJn3T2NXyjMQ"
-      
-      },
-    };
-  axios
-    .post("http://api.nexus.ke/api/upload/v1/intermediary/kyc", formData,config)
-    .then(res => {
-      console.log("res", JSON.stringify(res));
-    })
-    .catch(err => {
-      console.log("err", err.response);
-    });
-};
-
 // destructure
     const { firstName, lastName,director_pin,id_number,email,contact,address}= newDirector;
-    const { previewVisible, previewImage, fileList } = image;
 
-  
     const item= {
       
       name: `${firstName + ""+ lastName}`,
@@ -95,39 +50,81 @@ const handleSubmit = event => {
       address
       
     }
-    const kyc_token={}
-
 
     const handleAddRow = (e)=>{
       // e.preventDefault()
       setKyc({ ...kyc, directors:[...directors,item]})
-    
-   
     }
 
     const success=()=>{
       return(
-
         modalClose(),
         handleAddRow()
   
-        
       )
     }
- 
-    // const onChangeFileHandler=(e)=>{
-    //   setImage(e.target.files[0])
-    //   console.log("file selected on file handler change" + e.target.files[0])
-    // }
-  
 
-      const handleChange = (evt) => {
+    const handleChange = (evt) => {
     const value = evt.target.value;
     setNewDirector({
       ...newDirector,
       [evt.target.name]: value,
     });
   }
+
+  // start
+
+  // const [defatFileList, setDefaultFileList] = useState([]);
+  // const [progress, setProgress] = useState(0);
+
+  const uploadImage = async options => {
+    const { onSuccess, onError, file, onProgress } = options;
+
+    const fmData = new FormData();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbnRpdHlfaWQiOiI3IiwidXNlcl9pZCI6MjY1LCJyb2xlX2NvZGUiOiJJTl9BRE1fUkxfMDAxIiwidXNlcl90eXBlIjoiSU5URVJNRURJQVJZIiwiaWF0IjoxNTg3MDI2OTc5LCJleHAiOjE1ODk2MTg5NzksImF1ZCI6IkNsaWVudF9JZGVudGl0eSIsImlzcyI6Ik5leHVzIiwic3ViIjoiaW5mb0BuZXh1cy5rZSJ9.BK2Rs61mEoeaplDVU_kK0wokfGPwZ5m2j0S_lGXwiYOjQCawwrwbiCD-B3of3mmw0si8MG5Gcgl34Z8fg3G1QwQe9SO2YREdeyB9caWkS75gYvf9HxOeIKZXJ4KXkvXrwcV2Vic0pyCUDZpXxFqz5C2yuFqPEPvNSr-36trBGyepC8l35I36A45GBD5dseBD0PC_SxCDI751OGQbxvi01oUv8_KtJwPoI7qo0yKpx1V4XFM4BpKREk9gsyjAaqCNpJzSD4bu3-BwqaIYsho2H5Zi32Iv8pmzHJGtRl68GZQM4xeyENKjkA5vNlJGPaiySXOOybrLMsdJn3T2NXyjMQ"
+     
+     },
+    };
+    fmData.append("image", file);
+    try {
+      const res = await axios.post(
+        "http://api.nexus.ke/api/upload/v1/intermediary/kyc",
+        fmData,
+        config
+      );
+
+      onSuccess("Ok");
+      console.log("server res: ", res);
+    } catch (err) {
+      console.log("Eroor: ", err);
+      
+      onError({ err });
+    }
+  };
+
+  const handleOnChange = ({ file, fileList, event }) => {
+
+    setImage(fileList);
+  
+  };
+
+  const beforeUpload = (file) => {
+    // if (!/jpe?g|png$/.test(file.type)) {
+    //     // message.error('Picture format error');
+    //     file.flag=true;
+    //     return false;
+    // }
+    const isLt1M = file.size / 1024  < 1;
+    if (!isLt1M) {
+      message.error('Picture size more than limit(2M)')
+        file.flag=true;
+        return false;
+    }
+    return true;
+}
   
  
 
@@ -167,37 +164,27 @@ const handleSubmit = event => {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title><h5  className="text-grey">Add Director</h5></Modal.Title>
+            <Modal.Title><h5  className="text-grey">Add a Director</h5></Modal.Title>
           </Modal.Header>
           <Modal.Body>
      
           <Form className="login-form" enctype="multipart/form-data">
           <div className="form-group ">
-              <Upload 
-              
-              listType="picture-card"
-              fileList={fileList}
-              onPreview={handlePreview}
-              onChange={handleUpload}
-              beforeUpload={()=>false}
-              >
-         
-                                  <Icon.Upload size={14}/> 
-                                
-                                  
-                               
-              </Upload>
-              {/* <input type="file" onChange={onChangeFileHandler}/>
-              <Button>
-                  <Icon.Upload size={14}  className="mr-2"/> 
-                  Upload Photo
-                </Button> */}
+            <p className="text-center"> Director's image</p>
+                <Upload
+                  accept="image/*"
+                  multiple= {false}
+                  customRequest={uploadImage}
+                  beforeUpload={beforeUpload}
+                  onChange={handleOnChange}
+                  listType="picture-card"
+                  defaultFileList={image}
+                  className="image-upload-grid">
+        {image.length >= 1 ? null : <div><Icon.Edit2 size={18}/></div>}
+        </Upload>
+        {/* {progress > 0 ? <Progress percent={progress} /> : null} */}
           </div>
-          <Modal visible={previewVisible} onCancel={handleCancel} footer={null}>
-            
- 
-          <img alt="avatar" style={{width:"100%"}} src={previewImage}/>
-          </Modal>
+        
       
                   <div className="form-row">
            <div className="col-md-6">
@@ -353,7 +340,7 @@ const handleSubmit = event => {
               color="primary"
               variant="contained"
               // type="submit"
-              onClick={handleSubmit}
+              onClick={success}
               className="btn btn-outline-success px-5 mx-auto "
             >Submit
             </button> 

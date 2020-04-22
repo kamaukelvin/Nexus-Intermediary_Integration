@@ -17,7 +17,6 @@ import {Route, Switch} from 'react-router-dom';
 
 // react-notification
 
-import { ToastProvider} from 'react-toast-notifications'
 
 // authentication
 import PrivateRoute from './utils/PrivateRoute'
@@ -74,7 +73,7 @@ function App() {
   
       <div className="App">
        
-      <ToastProvider>
+      
         <Switch>
             <Route exact path="/" component={Home}/>
             <PublicRoute exact  path="/login" component={Login}/>
@@ -88,7 +87,7 @@ function App() {
             <Route component={Error}/>
             
           </Switch>
-          </ToastProvider>
+       
       </div>
 
   );

@@ -1,15 +1,19 @@
-import React, { Component } from 'react'
+import React, { useState, useContext } from 'react'
 import { Steps, Button, message } from 'antd';
 import 'antd/dist/antd.css';
 import '../../assets/css/dashboard.css'
 import {Link} from 'react-router-dom'
 import pic from "../../assets/images/auth/kyc.jpg"
 import Selection from '../../components/step-form/Selection'
-import Setup from '../../components/step-form/Setup'
-import Confirm from '../../components/step-form/Confirm'
+import Directors from '../../components/step-form/Directors'
+import Uploads from '../../components/step-form/Uploads'
+import IosAttach from 'react-ionicons/lib/IosAttach'
+import {KycContext} from '../../context/KycContext'
 
 
 const { Step } = Steps;
+
+
 
 const steps = [
   {
@@ -17,35 +21,39 @@ const steps = [
     content: <Selection/>,
   },
   {
-    title: 'Set Up Credentials',
-    content: <Setup/>,
+    title: 'Upload Documents',
+    content: <Uploads/>,
   },
   {
-    title: 'Confirm',
-    content: <Confirm/>,
+    title: 'Directors',
+    content: <Directors/>,
   },
 
 ];
 
-export default class Kyc extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 0,
-    };
+export default function Kyc() {
+
+
+
+  const context = useContext(KycContext)
+  const {upload}= context
+
+  const [current ,setCurrent]= useState(0)
+
+  function next() {
+    const current_step = current + 1;
+    setCurrent(current_step);
   }
 
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
+  function prev() {
+    const current_step = current - 1;
+    setCurrent(current_step);
   }
 
-  prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
-  }
-  render() {
-    const { current } = this.state;
+ 
+
+console.log("current",current)
+    // const { current } = this.state;
     return (
       <div className="d-flex">
         <div className="col-md-5 d-flex " style={{backgroundImage: `url(${pic})`,backgroundSize: "cover", backgroundPosition: "center",width: "80vw",height:"100vh"}}>
@@ -66,18 +74,19 @@ export default class Kyc extends Component {
         <h2 className="text-center my-5">Help us know you better</h2>
         <Steps current={current}>
           {steps.map(item => (
-            <Step key={item.title} title={item.title} />
+            <Step key={item.title} title={item.title}  />
           ))}
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action float-right">
           {current > 0 && (
-            <Button style={{ margin: 8 }} onClick={() => this.prev()}>
+            <Button style={{ margin: 8 }} onClick={() => prev()}>
               Previous
             </Button>
           )}
-           {current < steps.length - 1 && (
-            <Button type="primary" onClick={() => this.next()}>
+          
+           {current===2?upload:current < steps.length - 1 && (
+            <Button type="primary" onClick={() => next()} >
               Next
             </Button>
           )}
@@ -96,6 +105,6 @@ export default class Kyc extends Component {
     
     
     )
-  }
+  
 }
 

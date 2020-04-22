@@ -4668,6 +4668,59 @@ pre {
 	text-decoration: underline
 }
 
+/* *********************kyc***************************** */
+.upload-title{
+	font: 500 18px/35px "Roboto", sans-serif;
+	color: #3f4553;
+}
+.passport h4 {
+	font: 500 15px/23px "Roboto", sans-serif;
+	color: #5f6771;
+	padding: 0;
+}
+.input-group {
+	padding-bottom: 40px;
+}
+.input-group .upload-file {
+	width: 100%;
+	height: auto;
+
+}
+.input-group .upload-file .upload-file-label {
+	/* width: 168px; */
+	/* border-radius: 5px; */
+	cursor: pointer;
+	font: 700 14px/40px "Roboto", sans-serif;
+	border: none !important;
+	text-align: center;
+	transition: all 300ms linear 0s;
+	color: #5f6771;
+}
+.input-group .upload-file.upload-file-label i {
+	font-size: 20px;
+	padding-right: 10px;
+}
+.input-group .upload-file .upload-file-label:hover, .input-group .upload-file.upload-file-label:focus {
+	/* background: #5cb85c;
+	border-color: #5cb85c;
+	color: #fff; */
+}
+.input-group .upload-file-input {
+	display: none;
+}
+.file_added {
+	text-align: left;
+	padding-left: 190px;
+	padding-bottom: 60px;
+}
+.file_added li {
+	font: 400 15px/28px "Roboto", sans-serif;
+	color: #5f6771;
+}
+.ion-paperclip{
+	color: #5cb85c !important;
+
+}
 
 /**********************************************************************
 ***********************************************************************
@@ -4877,6 +4930,113 @@ pre {
 	margin-left: -70px;
 }
 
+/* avatar upload director */
+.image-upload-grid{
+	border-radius: 50%;
+}
+.ant-upload-picture-card-wrapper {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+}
+.ant-upload.ant-upload-select-picture-card {
+	border-radius: 50% !important
+}
+.ant-upload-list-picture-card .ant-upload-list-item {
+    float: left;
+    width: 104px;
+    height: 104px;
+    margin: 0 8px 8px 0;
+    border-radius: 50% !important;
+}
+.ant-upload-list-picture-card .ant-upload-list-item-info {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 50% !important;
+}
+.ant-upload-list-picture-card .ant-upload-list-item-actions .anticon-eye{
+	display:none !important
+}
+
+/* select category */
+.ant-radio {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    top: 38px;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    -webkit-font-feature-settings: 'tnum';
+    font-feature-settings: 'tnum', "tnum";
+    position: absolute;
+    
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: sub;
+    outline: none;
+    cursor: pointer;
+}
+.ant-radio-inner {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 0 !important;
+    height: 0 !important;
+    background-color: #fff;
+    border-color: #d9d9d9;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 100px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+
+.ant-radio-inner::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f058" !important;
+    position: absolute;
+    top: -15px !important;
+    left: 3px !important;
+    display: table;
+    width: 8px;
+	height: 8px;
+	color:#5cb85c;
+    background-color:transparent !important;
+    border-top: 0;
+    border-left: 0;
+    border-radius: 8px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+    -webkit-transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    /* content: ' '; */
+}
+.ant-radio-checked .ant-radio-inner {
+    border-color: transparent !important;
+}
+.ant-radio-wrapper:hover .ant-radio, .ant-radio:hover .ant-radio-inner, .ant-radio-input:focus + .ant-radio-inner {
+    border-color: transparent !important;
+}
+.ant-radio-checked .ant-radio-inner::after {
+    -webkit-transform: scale(1.8) !important;
+    transform: scale(1.8) !important;
+}
+
+/* upload docs */
+.ant-upload:hover{
+	color:#5cb85c !important;
+	cursor:pointer !important;
+
+}
 
 
 
