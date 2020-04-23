@@ -9,6 +9,8 @@ import Directors from '../../components/step-form/Directors'
 import Uploads from '../../components/step-form/Uploads'
 import IosAttach from 'react-ionicons/lib/IosAttach'
 import {KycContext} from '../../context/KycContext'
+import { useToasts } from 'react-toast-notifications'
+import _ from 'lodash'
 
 
 const { Step } = Steps;
@@ -33,10 +35,12 @@ const steps = [
 
 export default function Kyc() {
 
+  const { addToast } = useToasts();
+
 
 
   const context = useContext(KycContext)
-  const {upload}= context
+  const {upload, kyc, documents}= context
 
   const [current ,setCurrent]= useState(0)
 
@@ -50,7 +54,12 @@ export default function Kyc() {
     setCurrent(current_step);
   }
 
- 
+let doc = _.mapValues(documents)
+
+
+
+
+
 
 
     // const { current } = this.state;
@@ -79,20 +88,39 @@ export default function Kyc() {
         </Steps>
         <div className="steps-content">{steps[current].content}</div>
         <div className="steps-action float-right">
-          {current > 0 && (
+          { current > 0 && (
             <Button style={{ margin: 8 }} onClick={() => prev()}>
               Previous
             </Button>
           )}
-          
-           {current===2?upload:current < steps.length - 1 && (
-            <Button type="primary" onClick={() => next()} >
+          { kyc.intermediary === '' && current ===0   ? current < steps.length - 1 && (
+            <Button type="primary" onClick={() => addToast('Select category of intermediary', { appearance: 'error',autoDismiss: true, } )} >
               Next
             </Button>
-          )}
-           {current === steps.length - 1 && (
-            <Button type="primary" onClick={() => message.success('Processing complete!')}>
+          ): (doc.kra_pin.length===0 || doc.cr_12.length===0 || doc.incorporation_certificate.length===0|| doc.mou.length===0||doc.practicing_license.length===0 || doc.licence_certificate.length===0)&& current===1 ? <Button type="primary" onClick={() => addToast('Ensure you upload all documents', { appearance: 'error',autoDismiss: true, } )} >
+          Next
+        </Button>: current < steps.length - 1 && (
+            <Button type="primary" onClick={() => next()} >
+              Next
+            </Button>)}
+          
+           {/* {current===2?upload:current < steps.length - 1 && (
+            <Button type="primary" onClick={() => next()} >
+              Next
+            </Button> */}
+        
+           {kyc.directors.length===0 && current===2 ? <Button type="primary" onClick={()=>addToast('Add atleast one director', { appearance: 'error',autoDismiss: true, } )}>
               Done
+            </Button>: current === steps.length - 1 && (
+            <Button type="primary" onClick={upload} disabled={kyc.uploading}>
+            {kyc.uploading && ( <i className="fa fa-circle-notch fa-spin" style={{ marginRight: "5px" }}/>)}
+                    {kyc.uploading && <span className="text-capitalize">
+                      Please wait...
+                      </span>
+                    }
+                    {!kyc.uploading && (
+                      <span className="text-capitalize"> Done</span>
+                    )}
             </Button>
           )}
     

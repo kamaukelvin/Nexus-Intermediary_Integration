@@ -69,6 +69,12 @@ export default function Uploads() {
     
   };
 
+  
+ const handleRemove = fileId => {
+    const { fileList } = documents;
+    this.setState({ fileList: fileList.filter(item => item.uid !== fileId) });
+  };
+
   // Uploading Methods
 
   // KRA
@@ -264,6 +270,7 @@ export default function Uploads() {
     }
   };
 
+
   return (
     <div>
       <h3 className="upload-title text-center mt-5">Upload Documents</h3>
@@ -364,10 +371,25 @@ export default function Uploads() {
       </div>
 
       <ul className="file_added">
-        <li>File Added:</li>
-{/* {documents.kra_pin[0]==='undefined' || documents.kra_pin.length<1 ? null  : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />{documents.kra_pin[0].file.name}</li>} */}
-        {/* <li className="ion-paperclip" ><IosAttach color="#5cb85c" />{documents.kra_pin[0].File.name}</li> */}
-        <li className="ion-paperclip" ><IosAttach color="#5cb85c" /></li>
+
+        <li>Files Added:
+
+        {(documents.kra_pin === undefined || documents.kra_pin.length === 0) &&
+        (documents.cr_12 === undefined || documents.cr_12.length === 0) &&
+        (documents.incorporation_certificate === undefined || documents.incorporation_certificate.length === 0 ) &&
+        (documents.licence_certificate === undefined || documents.licence_certificate.length === 0) &&
+        (documents.practicing_license === undefined || documents.practicing_license.length === 0) &&
+        (documents.mou === undefined || documents.mou.length === 0) ? <span className="text-danger pl-2 font-weight-bold">none</span> : null
+        }
+        </li>
+        {documents.kra_pin === undefined || documents.kra_pin.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />KRA Pin Certificate</li> }
+        {documents.cr_12 === undefined || documents.cr_12.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />CR_12 Document</li> }
+        {documents.incorporation_certificate === undefined || documents.incorporation_certificate.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />Incorporation Certificate</li> }
+        {documents.licence_certificate === undefined || documents.licence_certificate.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />License Certificate</li> }
+        {documents.practicing_license === undefined || documents.practicing_license.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />Practicing LIcense</li> }
+        {documents.mou === undefined || documents.mou.length === 0 ? null : <li className="ion-paperclip" ><IosAttach color="#5cb85c" />MoU</li> }
+
+       
 
          
       </ul>
