@@ -6,6 +6,7 @@ import '../../../assets/css/dashboard.css'
 
 import {ModalContext} from "../../../context/ModalContext"
 import {KycContext} from "../../../context/KycContext"
+import { useToasts } from 'react-toast-notifications'
 
 
 //  Validation
@@ -15,6 +16,7 @@ import axios from "axios";
 
 
 const AddDirector = (props)=> {
+  const { addToast } = useToasts();
 
     const context = useContext(ModalContext)
     const {modalClose}= context
@@ -74,8 +76,7 @@ const AddDirector = (props)=> {
 
   // start
 
-  // const [defatFileList, setDefaultFileList] = useState([]);
-  // const [progress, setProgress] = useState(0);
+ const token = sessionStorage.getItem('token')
 
   const uploadImage = async options => {
     const { onSuccess, onError, file, onProgress } = options;
@@ -84,7 +85,7 @@ const AddDirector = (props)=> {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbnRpdHlfaWQiOiI3IiwidXNlcl9pZCI6MjY1LCJyb2xlX2NvZGUiOiJJTl9BRE1fUkxfMDAxIiwidXNlcl90eXBlIjoiSU5URVJNRURJQVJZIiwiaWF0IjoxNTg3MDI2OTc5LCJleHAiOjE1ODk2MTg5NzksImF1ZCI6IkNsaWVudF9JZGVudGl0eSIsImlzcyI6Ik5leHVzIiwic3ViIjoiaW5mb0BuZXh1cy5rZSJ9.BK2Rs61mEoeaplDVU_kK0wokfGPwZ5m2j0S_lGXwiYOjQCawwrwbiCD-B3of3mmw0si8MG5Gcgl34Z8fg3G1QwQe9SO2YREdeyB9caWkS75gYvf9HxOeIKZXJ4KXkvXrwcV2Vic0pyCUDZpXxFqz5C2yuFqPEPvNSr-36trBGyepC8l35I36A45GBD5dseBD0PC_SxCDI751OGQbxvi01oUv8_KtJwPoI7qo0yKpx1V4XFM4BpKREk9gsyjAaqCNpJzSD4bu3-BwqaIYsho2H5Zi32Iv8pmzHJGtRl68GZQM4xeyENKjkA5vNlJGPaiySXOOybrLMsdJn3T2NXyjMQ"
+        "token": `${token}`
      
      },
     };
@@ -98,8 +99,11 @@ const AddDirector = (props)=> {
 
       onSuccess("Ok");
       console.log("server res: ", res);
+      setImage(file);
+    
     } catch (err) {
       console.log("Eroor: ", err);
+      setImage([]);
       
       onError({ err });
     }
@@ -111,14 +115,15 @@ const AddDirector = (props)=> {
   
   };
 
+
   const beforeUpload = (file) => {
-    // if (!/jpe?g|png$/.test(file.type)) {
-    //     // message.error('Picture format error');
-    //     file.flag=true;
-    //     return false;
-    // }
-    const isLt1M = file.size / 1024  < 1;
-    if (!isLt1M) {
+    if (!/jpe?g|png$/.test(file.type)) {
+      addToast('Incorrect File Format', { appearance: 'error',autoDismiss: true, } )
+        file.flag=true;
+        return false;
+    }
+    const isLt2M = file.size / 1024 /1024  < 2;
+    if (!isLt2M) {
       message.error('Picture size more than limit(2M)')
         file.flag=true;
         return false;
@@ -126,7 +131,7 @@ const AddDirector = (props)=> {
     return true;
 }
   
- 
+console.log("photo",image)
 
     return (
       <Formik
@@ -173,7 +178,7 @@ const AddDirector = (props)=> {
             <p className="text-center"> Director's image</p>
                 <Upload
                   accept="image/*"
-                  multiple= {false}
+                
                   customRequest={uploadImage}
                   beforeUpload={beforeUpload}
                   onChange={handleOnChange}

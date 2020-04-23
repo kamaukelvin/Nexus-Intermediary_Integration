@@ -52,7 +52,7 @@ export default function Kyc() {
 
  
 
-console.log("current",current)
+
     // const { current } = this.state;
     return (
       <div className="d-flex">

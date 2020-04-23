@@ -6,10 +6,13 @@ import * as Icon from 'react-feather';
 import {ModalContext} from '../../context/ModalContext'
 import AddDirector from '../widgets/modals/AddDirector'
 import '../../assets/css/dashboard.css'
+import axios from 'axios'
 
 
 
 export default function Directors(props) {
+
+  const { history } = props;
 
   // MODAL CONTEXT
 
@@ -45,6 +48,8 @@ export default function Directors(props) {
       setKyc({...kyc, directors:rows})
     }
 
+
+   
 
     return (
      <>

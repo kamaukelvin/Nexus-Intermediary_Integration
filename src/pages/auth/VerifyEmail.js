@@ -56,7 +56,7 @@ const verify =  () =>{
       setConfirming(false)
   
       setId(res.data.result.registration_setup_id)
-      localStorage.setItem('registration_id', res.data.result.registration_setup_id)
+      sessionStorage.setItem('registration_id', res.data.result.registration_setup_id)
 
       addToast(res.data.result.status, { appearance: 'success',autoDismiss: true, } )
      history.push('/credentials')

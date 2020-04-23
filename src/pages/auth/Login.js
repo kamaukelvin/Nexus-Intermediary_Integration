@@ -7,6 +7,7 @@ import axios from "axios";
 import { useToasts } from 'react-toast-notifications'
 
 
+
 //  Validation
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -90,10 +91,10 @@ console.log("this is the stet of login"+JSON.stringify(user))
     .post( 'http://api.nexus.ke/api/web/v1/intermediary',body, config)
       .then((res) => {
         setUser({...user, loading:false})
-        // sessionStorage.setItem('token',res.data.result.token )
+        sessionStorage.setItem('token',res.data.result.token )
         setUser({username:'', password:'', rememberMe:false});
         
-        history.push("/dashboard");
+        history.push("/kyc");
       })
       // errors are printed out in the console
       .catch((err) => {

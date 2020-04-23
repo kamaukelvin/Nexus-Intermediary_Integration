@@ -44,14 +44,7 @@ const [documents, setDocuments]= useState({
       
  
 
- if(documents.kra_pin === undefined || documents.kra_pin.length === 0|| 
-  documents.cr_12 === undefined || documents.cr_12.length === 0 ||
-  documents.incorporation_certificate === undefined || documents.incorporation_certificate.length === 0 ||
-  documents.practicing_license === undefined || documents.practicing_license.length === 0 ||
-  documents.licence_certificate === undefined || documents.licence_certificate.length === 0 ||
-  documents.mou === undefined || documents.mou.length === 0 ){
-  addToast('Ensure all documents are attached', { appearance: 'error',autoDismiss: true, } ) 
- }else{
+
 
     let formData = new FormData();
     // add one or more of your files in FormData
@@ -94,7 +87,7 @@ const [documents, setDocuments]= useState({
 
    }
  
-   }
+   
 
 
 

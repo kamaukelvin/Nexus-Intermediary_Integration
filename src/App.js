@@ -27,48 +27,48 @@ import Dashboard from './pages/Dashboard';
 
 function App() {
 
-  const [authLoading, setAuthLoading] = useState(true)
+  // const [authLoading, setAuthLoading] = useState(true)
 
-  useEffect(() => {
+  // useEffect(() => {
    
-    const token = getToken();
+  //   const token = getToken();
   
-    if (!token) {
-      return console.log("token is empty");
-    }
-    else{
+  //   if (!token) {
+  //     return console.log("token is empty");
+  //   }
+  //   else{
       
-    console.log("token is populTED")
+  //   console.log("token is populTED")
 
 
-    const config ={
-      header: {
-        'Content-Type': 'application/json'
-      }
-    }
+  //   const config ={
+  //     header: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }
  
-    axios.post('https://yotemarket.co.ke/kev/api/validate_token.php', token, config)
-    .then(response => {
+  //   axios.post('https://yotemarket.co.ke/kev/api/validate_token.php', token, config)
+  //   .then(response => {
 
-    console.log("response from token validation" + response)
-      setUserSession(response.data.token, response.data.user);
-      setAuthLoading(false);
+  //   console.log("response from token validation" + response)
+  //     setUserSession(response.data.token, response.data.user);
+  //     setAuthLoading(false);
 
-    }).catch(error => {
-      console.log(JSON.stringify(error))
-      // removeUserSession();
-      setAuthLoading(false);
-    });
+  //   }).catch(error => {
+  //     console.log(JSON.stringify(error))
+  //     // removeUserSession();
+  //     setAuthLoading(false);
+  //   });
 
-    }
+  //   }
 
-  }, []);
+  // }, []);
  
-  if (authLoading && getToken()) {
-    return <div>
-      <Loader />
-    </div>
-  }
+  // if (authLoading && getToken()) {
+  //   return <div>
+  //     <Loader />
+  //   </div>
+  // }
   return (
   
       <div className="App">

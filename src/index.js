@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from "react-router-dom";
 import {KycContextProvider} from './context/KycContext'
 import {ModalContextProvider} from "./context/ModalContext"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastProvider} from 'react-toast-notifications'
 
@@ -15,6 +17,7 @@ ReactDOM.render(
     <ModalContextProvider>
         <Router>
         <App />
+        <ToastContainer />
         </Router>
     </ModalContextProvider>
 </KycContextProvider>

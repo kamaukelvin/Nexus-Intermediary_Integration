@@ -78,7 +78,7 @@ const Credentials = (props) => {
 
   const submitCredentials = () => {
 
-    const reg_id = localStorage.getItem('registration_id')
+    const reg_id = sessionStorage.getItem('registration_id')
    
     const body = 
 
@@ -113,7 +113,7 @@ const Credentials = (props) => {
  
       .then((res) => {
         setLoading(false);
-        localStorage.removeItem('registration_id')
+        sessionStorage.removeItem('registration_id')
         history.push("/login");
       })
       // errors are printed out in the console
